@@ -1,86 +1,86 @@
-# 阶段 2 — RIA++ 构造 skill
+# Stage 2 — RIA++ Skill Construction
 
-## 目标
+## Goal
 
-把阶段 1.5 通过的每个方法论单元,构造成一个符合 Claude Code skill 规范的 SKILL.md。
+Convert each methodology unit that passed Stage 1.5 into a SKILL.md that complies with the Claude Code skill specification.
 
-使用模板: `templates/SKILL.md.template`
+Use template: `templates/SKILL.md.template`
 
-## RIA++ 六段
+## RIA++ Six Parts
 
-### R — Reading (原文)
+### R — Reading (Original Text)
 
-- 直接引用 ≤150 字
-- 必须标注出处 (章节 / 页码 / 段落标识)
-- 若原书是英文,引用英文原文 + 你自己翻译的中文,**不要用现成译本** (避免译者版权 + 译本可能失真)
+- Direct quotation ≤150 characters
+- Must cite source (chapter / page number / paragraph identifier)
+- If original book is in English, quote the English original + your own Chinese translation, **do not use existing translations** (avoid translator copyrights + potential translation distortions)
 
-### I — Interpretation (自述)
+### I — Interpretation (In My Own Words)
 
-- 用**你自己的话**重写方法论的核心骨架
-- 5–15 行
-- 检查: 读完这段,一个没读过原书的人能否理解这个方法论在做什么? 若不能,重写。
-- 禁止: 照搬原文句子 / 堆砌修辞
+- Rewrite the core framework of the methodology in **your own words**
+- 5–15 lines
+- Check: After reading this, can someone who hasn't read the original book understand what this methodology does? If not, rewrite.
+- Forbidden: Copying original sentences / piling up rhetoric
 
-### A1 — Past Application (书中案例)
+### A1 — Past Application (Book Examples)
 
-- 作者在书中**亲自**用这个方法论处理过的具体案例
-- 至少 1 条,≤3 条
-- 每条要点明: 遇到什么问题 → 怎么用这个方法论 → 得出什么结论 → 实际结果如何
+- Specific cases where the author **personally** applied this methodology in the book
+- At least 1, ≤3 cases
+- Each case must specify: what problem was encountered → how this methodology was used → what conclusion was drawn → what the actual result was
 
-这一段的作用是让 skill 在被调用时,agent 有具体的类比素材可用。
+The purpose of this section is to provide the agent with concrete analogy materials when the skill is called.
 
-### A2 — Future Trigger ★ (最关键)
+### A2 — Future Trigger ★ (Most Critical)
 
-**这决定了 skill 是否真的会被用起来。**
+**This determines whether the skill will actually be used.**
 
-必须明确:
-1. **用户会在什么情境下遇到这类问题?** (场景描述, 3–5 条)
-2. **这些情境的语言信号是什么?** (用户会说什么样的话)
-3. **和哪些相邻 skill 不同?** (避免和其他 skill 互相抢调用)
+Must clearly specify:
+1. **In what situations will users encounter这类问题?** (Scenario descriptions, 3–5 items)
+2. **What are the linguistic signals in these situations?** (What users will say)
+3. **How is it different from adjacent skills?** (Avoid conflicts with other skills)
 
-A2 的产出直接写入 skill frontmatter 的 `description` 字段 — Claude 据此决定是否激活 skill。
+The output of A2 is directly written to the skill frontmatter's `description` field — Claude uses this to decide whether to activate the skill.
 
-**好的 A2 示例** (来自"逆向思维" skill):
-> 用户在纠结一个决策、列举正面理由却理不出头绪时;或在问"怎么做 X 才能成功"时;不适用于纯信息查询类问题。
+**Good A2 Example** (from "Reverse Thinking" skill):
+> When users are struggling with a decision, listing positive reasons but can't organize their thoughts; or when asking "how to do X to succeed"; not applicable to pure information query problems.
 
-**坏的 A2 示例**:
-> 用户需要思考时。 ← 太宽泛,会误激活
+**Bad A2 Example**:
+> When users need to think. ← Too broad, will be mistakenly activated
 
-### E — Execution (可执行步骤)
+### E — Execution (Executable Steps)
 
-- 把方法论转成 1-2-3 步骤
-- 每一步有**可判断的完成标准**
-- 如果有判停点 (step 2 之后若 X 则跳到 step 5),显式写出
+- Convert the methodology into 1-2-3 steps
+- Each step has **verifiable completion criteria**
+- If there are stopping points (if X after step 2, skip to step 5), explicitly state them
 
-E 的作用是让 agent 在调用这个 skill 时有明确的执行路径,不是"自由发挥"。
+The purpose of E is to give the agent a clear execution path when calling this skill, rather than "freestyling".
 
-### B — Boundary (边界)
+### B — Boundary
 
-- 什么时候**不要**使用这个 skill (反场景)
-- 作者在书里警告过的失败模式
-- 来自阶段 0 批判阶段的作者盲点
-- 与之相邻但容易混淆的其他方法论
+- When **not** to use this skill (inverse scenarios)
+- Failure modes warned about by the author in the book
+- Author's blind spots from Stage 0 critical phase
+- Adjacent but easily confused other methodologies
 
-B 的作用是**防止乱调用**。没有 B 的 skill,会在不该用的时候被用,反而帮倒忙。
+The purpose of B is **to prevent misuse**. Skills without B will be used when they shouldn't, doing more harm than good.
 
-## Frontmatter 设计
+## Frontmatter Design
 
 ```yaml
 ---
-name: <skill-slug>                    # kebab-case, 唯一
-description: |                        # A2 的浓缩版, ≤300 字
-  <何时用 + 何时不用 + 关键 trigger>
-source_book: 《穷查理宝典》 查理·芒格
-source_chapter: 第三讲
+name: <skill-slug>                    # kebab-case, unique
+description: |                        # Condensed version of A2, ≤300 characters
+  <When to use + When not to use + Key triggers>
+source_book: 《Poor Charlie's Almanack》 Charlie Munger
+source_chapter: Chapter 3
 tags: [decision, mental-model, cognitive-bias]
-related_skills: []                    # 阶段 3 填充
+related_skills: []                    # Filled in Stage 3
 ---
 ```
 
-## 常见失败模式
+## Common Failure Modes
 
-1. **I 段写成书摘** — 如果读起来像"本章作者说了 X",你在抄书不是在解释。重写。
-2. **A2 太宽** — "需要决策时" 这种 trigger 永远不会被精准调用。必须给出**可识别的语言信号**。
-3. **E 段只有哲学没有动作** — "保持客观" 不是 step,"列出 3 个最不希望发生的结果" 才是。
-4. **缺 B 段** — 没边界的 skill 会被过度调用,最终用户失望。
-5. **从 I 直接跳到 E,跳过 A1** — 丢失了"作者亲自用过"的证据,skill 失去权威性。
+1. **I section written as book excerpt** — If it reads like "The author said X in this chapter", you're copying the book, not explaining. Rewrite.
+2. **A2 too broad** — Triggers like "when needing to make a decision" will never be precisely called. Must provide **recognizable linguistic signals**.
+3. **E section only has philosophy, no actions** — "Stay objective" is not a step, "list the 3 worst outcomes that could happen" is.
+4. **Missing B section** — Skills without boundaries will be overused, ultimately disappointing users.
+5. **Jumping directly from I to E, skipping A1** — Lose the evidence that the author personally used it, the skill loses authority.

@@ -1,65 +1,65 @@
 # Case Extractor
 
-你是 book2skill 流水线中**并行运行的 5 个 extractor 之一**,专门负责识别**作者在书中亲自应用某个方法论的具体案例**。
+You are one of the **5 extractors that run in parallel** in the book2skill pipeline, specifically responsible for identifying **specific cases where the author personally applies a methodology in the book**.
 
-## 为什么要单独抽案例
+## Why Extract Cases Separately
 
-案例本身不独立成 skill,但它们是阶段 1.5 **V1 跨域验证**的关键证据,也是阶段 2 **A1 (Past Application)** 段的素材来源。没有案例池,后面两步都会卡住。
+Cases themselves don't become independent skills, but they are key evidence for **Phase 1.5 V1 Cross-Domain Verification**, and they serve as source material for **Phase 2 A1 (Past Application)**. Without a pool of cases, both subsequent steps will be blocked.
 
-## 你的输入
+## Your Input
 
 - `BOOK_OVERVIEW.md`
-- 书本文本
+- Book text
 
-## 你的职责范围
+## Your Scope of Responsibility
 
-- 作者**亲自**经历/操作/决策的真实事件
-- 作者**转述**的历史事件、他人案例 (但必须是作者用来说明某个方法论的)
-- 每个案例必须**绑定到一个方法论主题**,否则意义不大
+- Real events that the author **personally** experienced/operated/made decisions about
+- Historical events, other people's cases **narrated by the author** (but only when used to illustrate a methodology)
+- Each case must be **bound to a methodology topic**, otherwise it's not meaningful
 
-## 不属于你的
+## What Doesn't Belong to You
 
-- 纯背景叙事 (没有方法论绑定)
-- 虚构的寓言/比喻 (除非作者拿它直接说明方法)
-- 作者的观点 / 原则 / 框架本身
+- Pure background narrative (no methodology binding)
+- Fictional parables/metaphors (unless the author uses them to directly explain a method)
+- The author's own views/principles/frameworks
 
-## 识别信号
+## Identification Signals
 
-- "1973 年,我曾..."
-- "有一次..."
-- "某某公司的案例..."
-- "巴菲特告诉我..."
-- "比如..."
-- 过去时叙述 + 伴随评论/反思
+- "In 1973, I once..."
+- "One time..."
+- "The case of某某 company..."
+- "Buffett told me..."
+- "For example..."
+- Past tense narrative + accompanying commentary/reflection
 
-## 输出格式
+## Output Format
 
 ```yaml
 - id: c01
-  title: 投资 See's Candy
+  title: Investing in See's Candy
   type: case
-  source_chapter: 第 5 讲
+  source_chapter: Lecture 5
   source_quote: |
-    "我们以 2500 万美元收购了 See's Candy...这是我们第一次为品牌溢价付费。"
+    "We acquired See's Candy for $25 million...this was the first time we paid a premium for a brand."
   summary: |
-    巴菲特和芒格收购 See's Candy 时, 放弃了格雷厄姆式的"便宜货"标准,
-    转而为"有定价权的生意"付出溢价。这笔投资后来成了他们转向
-    "优质企业+合理价格"策略的转折点。
-  bound_to:                    # ★ 必须绑定到至少一个方法论主题
-    - "能力圈 + 定价权"
-    - "从便宜货到优质企业的转变"
+    When Buffett and Munger acquired See's Candy, they abandoned Graham-style "cheap stock" standards,
+    and instead paid a premium for "businesses with pricing power." This investment later became a turning point
+    for their shift to the "quality business + fair price" strategy.
+  bound_to:                    # ★ Must be bound to at least one methodology topic
+    - "Circle of competence + Pricing power"
+    - "From cheap stocks to quality businesses transition"
   outcome: |
-    该公司后续 30 年产生的现金流远超初始投资, 验证了新策略。
+    The company generated cash flows far exceeding the initial investment over the next 30 years, validating the new strategy.
   tags: [case, investment, turning-point]
 ```
 
-## 自检
+## Self-Check
 
-- [ ] 每条案例都有 `bound_to` 字段,明确它在阐释什么
-- [ ] 有原文引用作为证据
-- [ ] `outcome` 字段尽量填 (如果书中说了结果)
-- [ ] 不做筛选
+- [ ] Every case has a `bound_to` field, clearly specifying what methodology it illustrates
+- [ ] Has original text citation as evidence
+- [ ] Fill the `outcome` field as much as possible (if the book mentions results)
+- [ ] Don't filter
 
-## 数量预期
+## Quantity Expectations
 
-传记类 / 访谈整理类的书可能有几十上百个案例。方法论书可能 10–30 个。都不少于 5 个,否则阶段 2 的 A1 段会空。
+Biography/interview-style books may have dozens or even hundreds of cases. Methodology books may have 10-30 cases. There should be at least 5 cases, otherwise the A1 section of Phase 2 will be empty.

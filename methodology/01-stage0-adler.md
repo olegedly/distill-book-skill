@@ -1,57 +1,57 @@
-# 阶段 0 — 整书理解 (Adler 分析阅读)
+# Stage 0 — Book Comprehension (Adler Analysis Reading)
 
-## 目标
+## Goal
 
-在动手拆书之前,先**真正读懂这本书**。没有这一步,拆出来的 skill 只是一堆金句集,会带上作者的盲点却不自知。
+Before breaking down the book, first **truly understand the book**. Without this step, the extracted skills will just be a collection of golden quotes, carrying the author's blind spots without awareness.
 
-产出: `books/<slug>/BOOK_OVERVIEW.md` (按 `templates/BOOK_OVERVIEW.md.template` 填充)。
+Output: `books/<slug>/BOOK_OVERVIEW.md` (filled according to `templates/BOOK_OVERVIEW.md.template`).
 
-## 四步 (前三步来自 Adler, 第四步是本 skill 新增)
+## Four Steps (First three from Adler, fourth is newly added for this skill)
 
-### 步骤 1 — 结构 (Structural)
+### Step 1 — Structural
 
-识别书的"骨架",回答:
+Identify the book's "skeleton" and answer:
 
-- **这本书属于什么类型?** (方法论 / 传记 / 哲学 / 实操手册 / ...)
-- **它的主旨用一句话说是什么?** — 必须真的能压缩到一句
-- **它的主要部分如何组合成一个整体?** — 列出 3–7 个一级论点并标出它们的关系 (并列 / 递进 / 对比 / 反驳)
-- **作者试图解决的核心问题是什么?**
+- **What type of book is this?** (Methodology / Biography / Philosophy / Practical manual / ...)
+- **What is the main thesis in one sentence?** — Must be truly compressible to one sentence
+- **How do the main parts combine into a whole?** — List 3–7 primary arguments and mark their relationships (parallel / progressive / contrastive / rebuttal)
+- **What core problem is the author trying to solve?**
 
-### 步骤 2 — 解释 (Interpretive)
+### Step 2 — Interpretive
 
-- **关键术语**: 列出作者反复使用、有特定含义的概念词,给每个词写一句"作者本人的用法"定义 (不是字典定义)
-- **核心命题**: 用你自己的话重述作者的 5–15 个核心主张
-- **论证链**: 这些主张之间是怎么推导的? 作者用什么证据支撑?
+- **Key terms**: List concepts the author repeatedly uses with specific meanings, write a "author's own usage" definition for each term (not dictionary definition)
+- **Core propositions**: Restate the author's 5–15 main claims in your own words
+- **Argument chain**: How do these claims derive from each other? What evidence does the author use to support them?
 
-### 步骤 3 — 批判 (Critical) ★ 最容易被跳过也最重要
+### Step 3 — Critical ★ Most easily skipped but most important
 
-Adler 原话: "在没有找出论证中的错误之前,你不能不同意作者。" 反过来: **在找出作者的局限之前,你也不能完全同意。**
+Adler's original words: "You cannot disagree with the author until you find errors in their arguments." Conversely: **You cannot fully agree with the author until you find their limitations.**
 
-必须回答:
-- **作者的时代局限**: 这本书写于什么时期? 哪些前提可能已经不成立?
-- **作者的立场盲点**: 作者的身份 / 行业 / 文化背景让他忽略了什么?
-- **未被证明的假设**: 作者把什么当成了不言自明但其实需要论证的东西?
-- **反对意见**: 如果有人要反驳这本书,最强的论点会是什么?
+Must answer:
+- **Author's era limitations**: When was this book written? Which premises may no longer hold?
+- **Author's blind spots**: What does the author overlook due to their identity / industry / cultural background?
+- **Unproven assumptions**: What does the author take as self-evident but actually needs论证?
+- **Counterarguments**: What would be the strongest arguments if someone were to rebut this book?
 
-这一步的产出会直接成为每个 skill 的 **Boundary (B)** 字段来源。
+The output from this step will directly become the source for the **Boundary (B)** field of each skill.
 
-### 步骤 4 — 应用潜力 (Applicability, 本 skill 新增)
+### Step 4 — Applicability (newly added for this skill)
 
-- **哪些内容可以 skill 化?** — 框架 / 清单 / 原则 / 决策程序
-- **哪些内容不适合 skill 化?** — 纯史料 / 纯故事 / 纯情感 (但可作为其他 skill 的 example)
-- **预估 skill 数量**: 给一个粗略区间 (不要硬凑)
-- **预估优先级**: 从"最能赋能普通人"的角度给候选 skill 排序
+- **What content can be turned into skills?** — Frameworks / Checklists / Principles / Decision procedures
+- **What content is unsuitable for skills?** — Pure historical data / Pure stories / Pure emotions (but can serve as examples for other skills)
+- **Estimated skill count**: Give a rough range (don't force it)
+- **Estimated priority**: Rank candidate skills from "most empowering to ordinary people" perspective
 
-## 质量门 (进入阶段 1 之前必须满足)
+## Quality Gate (must be satisfied before entering Stage 1)
 
-- [ ] 主旨能用一句话说清
-- [ ] 骨架列出 3–7 个一级论点
-- [ ] 关键术语词典有 ≥5 条
-- [ ] 批判阶段至少列出 3 条作者局限 (这一步没做到位就不能继续)
-- [ ] 已向用户展示 BOOK_OVERVIEW.md 并得到确认
+- [ ] Main thesis can be stated in one sentence
+- [ ] Skeleton lists 3–7 primary arguments
+- [ ] Key terms dictionary has ≥5 entries
+- [ ] Critical phase lists at least 3 author limitations (cannot proceed if this step is incomplete)
+- [ ] BOOK_OVERVIEW.md has been presented to user and confirmed
 
-## 常见失败模式
+## Common Failure Modes
 
-1. **跳过批判阶段** — 导致 skill 把作者的偏见当真理
-2. **骨架不是"作者的骨架",而是自己的想法** — 注意你在写摘要还是在写读后感
-3. **术语定义用字典 / 常识而非作者的特定用法** — 作者用"能力圈"和字典用"能力圈"不是一回事
+1. **Skipping the critical phase** — Leads to skills treating the author's biases as truth
+2. **Skeleton is "your own skeleton" not the author's** — Note whether you're writing a summary or a reflection
+3. **Term definitions use dictionary/common sense rather than the author's specific usage** — The author's use of "circle of competence" is not the same as the dictionary's

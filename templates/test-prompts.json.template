@@ -7,46 +7,46 @@
     {
       "id": "should-trigger-01",
       "type": "should_trigger",
-      "prompt": "{{用户的典型话语 1 — 正面场景}}",
-      "expected_behavior": "应激活 {{skill-slug}}, 并 {{期望的具体动作}}",
-      "notes": "{{为什么这是正面场景}}"
+      "prompt": "{{User's typical phrase 1 — positive scenario}}",
+      "expected_behavior": "Should activate {{skill-slug}} and {{expected specific action}}",
+      "notes": "{{Why this is a positive scenario}}"
     },
     {
       "id": "should-trigger-02",
       "type": "should_trigger",
-      "prompt": "{{用户的典型话语 2}}",
+      "prompt": "{{User's typical phrase 2}}",
       "expected_behavior": "...",
       "notes": "..."
     },
     {
       "id": "should-trigger-03",
       "type": "should_trigger",
-      "prompt": "{{用户的典型话语 3}}",
+      "prompt": "{{User's typical phrase 3}}",
       "expected_behavior": "...",
       "notes": "..."
     },
     {
       "id": "should-not-trigger-01",
       "type": "should_not_trigger",
-      "prompt": "{{诱饵 1 — 看似相关但实际不该调用}}",
-      "expected_behavior": "不应激活本 skill, 因为 {{理由}}",
-      "notes": "诱饵: {{这是什么类型的诱饵}}"
+      "prompt": "{{Bait 1 — seems related but shouldn't be called}}",
+      "expected_behavior": "Should not activate this skill, because {{reason}}",
+      "notes": "Bait: {{What type of bait this is}}"
     },
     {
       "id": "should-not-trigger-02",
       "type": "should_not_trigger",
-      "prompt": "{{诱饵 2 — 另一种不该调用的情况}}",
+      "prompt": "{{Bait 2 — another case that shouldn't be called}}",
       "expected_behavior": "...",
       "notes": "..."
     },
     {
       "id": "edge-01",
       "type": "edge_case",
-      "prompt": "{{边界模糊场景}}",
-      "expected_behavior": "{{期望的合理判断 — 可能是调用, 可能是不调用, 但要说清为什么}}",
-      "notes": "边界: {{为什么这是边界}}"
+      "prompt": "{{Ambiguous boundary scenario}}",
+      "expected_behavior": "{{Expected reasonable judgment — may call, may not call, but must explain why}}",
+      "notes": "Boundary: {{Why this is a boundary case}}"
     }
   ],
   "minimum_pass_rate": 0.8,
-  "notes": "至少 3 条 should_trigger + 2 条 should_not_trigger + 1 条 edge_case。全部 should_not_trigger 必须通过 (诱饵容错为 0)。"
+  "notes": "At least 3 should_trigger + 2 should_not_trigger + 1 edge_case. All should_not_trigger must pass (bait tolerance is 0)."
 }

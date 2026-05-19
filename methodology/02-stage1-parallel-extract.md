@@ -1,57 +1,57 @@
-# 阶段 1 — 5 个 sub-agent 并行提取
+# Stage 1 — 5 sub-agents parallel extraction
 
-## 目标
+## Goal
 
-不用单一视角读一遍,而是**同时从 5 个不同角度扫描全书**,最大化候选单元覆盖率。
+Instead of reading through with a single perspective, **scan the entire book simultaneously from 5 different angles** to maximize candidate unit coverage.
 
-## 为什么要并行
+## Why parallel
 
-- **覆盖**: 单一视角会漏。框架提取器找不到的"反例",反例提取器会找到。
-- **速度**: Claude Code 的 Agent 工具支持并行,不用白不用。
-- **独立性**: 每个 extractor 独立判断,避免互相污染 — 三重验证才能真正起作用 (V1 跨域要求"独立出现")
+- **Coverage**: Single perspective misses things. What the framework extractor can't find as "counter-examples", the counter-example extractor will find.
+- **Speed**: Claude Code's Agent tools support parallel execution, might as well use it.
+- **Independence**: Each extractor makes independent judgments, avoiding mutual contamination — triple verification only works when truly independent (V1 cross-domain requirement "independent occurrence")
 
-## 5 个 sub-agent
+## 5 sub-agents
 
-每个 sub-agent 接收:
-- `BOOK_OVERVIEW.md` (阶段 0 产出, 提供全局上下文)
-- 书本文本 (或文本路径)
-- 对应的 extractor prompt (`extractors/<type>-extractor.md`)
+Each sub-agent receives:
+- `BOOK_OVERVIEW.md` (output from Stage 0, provides global context)
+- Book text (or text path)
+- Corresponding extractor prompt (`extractors/<type>-extractor.md`)
 
-并在一次调用中通过 Agent 工具 **同时 spawn 5 个**,不是串行。
+And through Agent tools **spawn 5 simultaneously** in one call, not serially.
 
-| # | extractor | 查找对象 | 产出文件 |
+| # | extractor | What to find | Output file |
 |---|---|---|---|
-| 1 | framework-extractor | 思维模型 / 决策框架 / 推理方法 | `candidates/frameworks.md` |
-| 2 | principle-extractor | 原则 / 清单 / 规则 / 断言 | `candidates/principles.md` |
-| 3 | case-extractor | 作者在书中亲自使用的实例 | `candidates/cases.md` |
-| 4 | counter-example-extractor | 作者警告的失败 / 反例 / 陷阱 | `candidates/counter-examples.md` |
-| 5 | glossary-extractor | 关键概念词典 | `candidates/glossary.md` |
+| 1 | framework-extractor | Mental models / decision frameworks / reasoning methods | `candidates/frameworks.md` |
+| 2 | principle-extractor | Principles / checklists / rules / assertions | `candidates/principles.md` |
+| 3 | case-extractor | Examples author personally uses in the book | `candidates/cases.md` |
+| 4 | counter-example-extractor | Failures / counter-examples / pitfalls author warns about | `candidates/counter-examples.md` |
+| 5 | glossary-extractor | Key concept dictionary | `candidates/glossary.md` |
 
-## 每个候选单元的最小字段
+## Minimum fields for each candidate unit
 
-无论是哪个 extractor,产出的每条候选单元必须包含:
+Regardless of which extractor, each candidate unit produced must contain:
 
 ```yaml
-id: f01                           # 类型缩写 + 序号
-title: 逆向思维                    # 简短标题
+id: f01                           # Type abbreviation + sequence number
+title: reverse thinking           # Short title
 type: framework                   # framework / principle / case / counter-example / term
-source_chapter: 第三讲             # 书中位置
-source_quote: |                   # 原文引用 ≤150 字
-  "反过来想,总是反过来想..."
-summary: |                        # 用自己的话,5-10 行
+source_chapter: Lecture 3         # Location in book
+source_quote: |                   # Original quote ≤150 characters
+  "Think backward, always think backward..."
+summary: |                        # In your own words, 5-10 lines
   ...
-tags: [decision, mental-model]    # 便于后续链接
+tags: [decision, mental-model]    # For subsequent linking
 ```
 
-## 输出前的自检
+## Self-check before output
 
-每个 extractor 在提交候选之前自问:
-1. 这个单元**在书中**有明确根据吗? (不是我脑补)
-2. 它属于我这个 extractor 的职责范围吗? (不要越界)
-3. 它是不是已经在别处被别的 extractor 提取过了? (重复不是问题,阶段 1.5 会合并)
+Each extractor asks itself before submitting candidates:
+1. Does this unit have clear basis **in the book**? (not something I made up)
+2. Does it fall within my extractor's responsibility scope? (don't overstep)
+3. Has it already been extracted by another extractor elsewhere? (duplication is not a problem, Stage 1.5 will merge)
 
-## 不在本阶段做的事
+## Not done in this stage
 
-- **不做筛选** — 宁错杀,留给阶段 1.5 三重验证
-- **不写 skill** — 只出候选,不出 SKILL.md
-- **不做跨单元链接** — 留给阶段 3
+- **No filtering** — Better to over-filter, leave to Stage 1.5 triple verification
+- **No skill writing** — Only produce candidates, not SKILL.md
+- **No cross-unit linking** — Leave to Stage 3

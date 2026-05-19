@@ -1,77 +1,77 @@
-# RIA-TV++ 方法论总览
+# RIA-TV++ Methodology Overview
 
-本文是 book2skill 所用 SOP 的设计说明,解释"为什么这么做"。执行时的具体步骤请读 `SKILL.md` 和 `methodology/01-*` 至 `06-*`。
+This document explains the design specification for the SOP used by book2skill, explaining "why it's done this way". For specific execution steps, please read `SKILL.md` and `methodology/01-*` to `06-*`.
 
-## 命名
+## Naming
 
 **RIA-TV++** =
-- **RIA** — 赵周 (《这样读书就够了》) 的便签拆书法: Reading / Interpretation / Appropriation
-- **TV** — Triple Verification,借自 nuwa-skill 的三重验证
-- **++** — 面向 agent 执行的扩展: E (Execution 可执行步骤) + B (Boundary 边界)
+- **RIA** — Zhao Zhou's note-taking拆书法 (Reading / Interpretation / Appropriation) from 《这样读书就够了》
+- **TV** — Triple Verification, borrowed from nuwa-skill
+- **++** — Extensions for agent execution: E (Executable steps) + B (Boundaries)
 
-## 思想来源
+## Ideological Sources
 
-| 来源 | 借鉴内容 |
+| Source | Borrowed Content |
 |---|---|
-| Mortimer Adler 《如何阅读一本书》 | 阶段 0: 分析阅读三阶段 (结构/解释/批判) |
-| 赵周 RIA 拆书法 | 阶段 2: R-I-A1-A2 基本骨架, 尤其 A2 → trigger |
-| Niklas Luhmann Zettelkasten | 原子化 + 链接 + 用自己的话重写 |
-| Tiago Forte Progressive Summarization | 阶段 4 的"可验证压缩链条"思想 |
-| nuwa-skill | 阶段 1 并行 extractor + 阶段 1.5 三重验证 |
-| darwin-skill | 阶段 4 test-prompts.json 格式 + 可进化性 |
+| Mortimer Adler 《如何阅读一本书》 | Stage 0: Three stages of analytical reading (structure/interpretation/criticism) |
+| Zhao Zhou RIA拆书法 | Stage 2: R-I-A1-A2 basic framework, especially A2 → trigger |
+| Niklas Luhmann Zettelkasten | Atomic + links + rewrite in own words |
+| Tiago Forte Progressive Summarization | Stage 4 "verifiable compression chain" concept |
+| nuwa-skill | Stage 1 parallel extractor + Stage 1.5 triple verification |
+| darwin-skill | Stage 4 test-prompts.json format + evolvability |
 
-## 根本洞察
+## Fundamental Insight
 
-**现有读书方法论都是为人类读者蒸馏,不是为 agent 执行者蒸馏。**
+**Existing reading methodologies are distilled for human readers, not for agent execution.**
 
-| 维度 | 给人看 | 给 agent 用 (book2skill 目标) |
+| Dimension | For human viewing | For agent use (book2skill goal) |
 |---|---|---|
-| 关键字段 | 故事 / 金句 / 情感钩子 | trigger / 可执行步骤 / 判停标准 |
-| 失败模式 | 读完就忘 | trigger 不准 → 永不调用或乱调用 |
-| 成功标准 | 读者"有收获" | 真实问题被解决 |
+| Key fields | Story / golden quotes / emotional hooks | trigger / executable steps / stop criteria |
+| Failure modes | Forgetting after reading | inaccurate trigger → never called or wrongly called |
+| Success criteria | Reader "has收获" (gains) | real problems are solved |
 
-所以 RIA-TV++ 的所有"扩展"(TV / E / B / test-prompts) 都是为了解决这个目标迁移带来的新问题。
+So all the "extensions" in RIA-TV++ (TV / E / B / test-prompts) exist to solve the new problems brought by this goal migration.
 
-## 流水线
+## Pipeline
 
 ```
           ┌───────────────────┐
-          │ 阶段 0: 整书理解   │  Adler 四步
+          │ Stage 0: Whole Book Understanding │  Adler four steps
           └─────────┬─────────┘
                     │ BOOK_OVERVIEW.md
                     ▼
           ┌───────────────────┐
-          │ 阶段 1: 并行提取   │  5 个 sub-agent 同时跑
+          │ Stage 1: Parallel Extraction │  5 sub-agents run simultaneously
           └─────────┬─────────┘
                     │ candidates/
                     ▼
           ┌───────────────────┐
-          │ 阶段 1.5: 三重验证 │  V1 跨域 / V2 预测力 / V3 独特性
+          │ Stage 1.5: Triple Verification │  V1 cross-domain / V2 predictive power / V3 uniqueness
           └─────────┬─────────┘
-                    │ 通过单元 + rejected/
+                    │ passed unit tests + rejected/
                     ▼
           ┌───────────────────┐
-          │ 阶段 2: RIA++ 构造 │  R / I / A1 / A2 / E / B
+          │ Stage 2: RIA++ Construction │  R / I / A1 / A2 / E / B
           └─────────┬─────────┘
-                    │ 每个 skill 的 SKILL.md
+                    │ Each skill's SKILL.md
                     ▼
           ┌───────────────────┐
-          │ 阶段 3: 链接       │  Zettelkasten + INDEX.md
+          │ Stage 3: Linking │  Zettelkasten + INDEX.md
           └─────────┬─────────┘
                     │
                     ▼
           ┌───────────────────┐
-          │ 阶段 4: 压力测试   │  test-prompts.json + 本地跑 + 回炉
+          │ Stage 4: Stress Testing │  test-prompts.json + local execution + refinement
           └───────────────────┘
                     │
                     ▼
-          可喂给 darwin-skill 自动进化
+          Can be fed to darwin-skill for automatic evolution
 ```
 
-## 不变量 (任何迭代都不能违反)
+## Invariants (cannot be violated in any iteration)
 
-1. **原子性**: 一个 skill 只做一个方法论单元,不能"大而全"
-2. **可追溯**: 每个 skill 必须有原文引用,指向源书章节
-3. **可验证**: 每个 skill 必须通过三重验证 + 压力测试
-4. **可进化**: 每个 skill 必须附带 darwin 兼容的 test-prompts.json
-5. **用户参与**: 阶段 0 之后必须让用户确认骨架再继续
+1. **Atomicity**: A skill only does one methodological unit, cannot be "large and comprehensive"
+2. **Traceability**: Each skill must have source text citations pointing to source book chapters
+3. **Verifiability**: Each skill must pass triple verification + stress testing
+4. **Evolvability**: Each skill must include darwin-compatible test-prompts.json
+5. **User Participation**: After stage 0, users must confirm the skeleton before continuing

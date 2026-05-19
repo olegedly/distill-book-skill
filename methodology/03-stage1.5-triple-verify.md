@@ -1,83 +1,83 @@
-# 阶段 1.5 — 三重验证筛选
+# Stage 1.5 — Triple Verification Filtering
 
-## 目标
+## Goal
 
-从候选单元池里,筛出**真正值得做成独立 skill 的方法论单元**。通不过的降级为 example / 引用 / 术语,但不独立成 skill。
+Filter from the candidate pool to find **methodology units that are truly worthy of becoming independent skills**. Those that don't pass are downgraded to examples / references / terminology, but not made into independent skills.
 
-这是 book2skill 区别于"书摘工具"的核心质量门。
+This is the core quality gate that distinguishes book2skill from "book summarization tools."
 
-## 三重验证 (全部通过才录取)
+## Triple Verification (Must pass all three to qualify)
 
-### V1 — 跨域验证 (Cross-domain)
+### V1 — Cross-domain Verification
 
-**问题**: 这个单元在书中**至少 2 个独立的语境**下有佐证吗?
+**Question**: Does this unit have supporting evidence in **at least 2 independent contexts** within the book?
 
-- "独立"的含义: 不是同一个案例换个说法,而是两个不同的故事/不同的章节/不同的对象都在讲同一个道理
-- **通过**: 《穷查理宝典》中"逆向思维"在投资决策、避免灾难、教学方法三个独立场景中都出现 → 通过
-- **不通过**: 某个漂亮句子只在一章里出现过一次,没有书内的独立证据 → 降级为金句 example
+- "Independent" means: not just the same case rephrased, but different stories / different chapters / different subjects all discussing the same principle
+- **Pass**: "Reverse thinking" in Poor Charlie's Almanac appears in investment decisions, disaster avoidance, and teaching methods as three separate scenarios → Pass
+- **Fail**: A beautiful sentence that only appears once in one chapter, with no independent evidence within the book → Downgraded to golden sentence example
 
-**为什么**: 在多个语境中反复出现的,才是作者真正想传达的稳定方法论,而不是一时兴起的表达。
+**Why**: What repeatedly appears across multiple contexts is the author's truly intended stable methodology, not just a fleeting expression.
 
-### V2 — 预测力测试 (Predictive Power)
+### V2 — Predictive Power Test
 
-**问题**: 能用这个单元,推导出书里没明说的某个问题的答案吗?
+**Question**: Can this unit be used to deduce answers to problems not explicitly discussed in the book?
 
-- 自己设计一个书中没直接讨论过的场景
-- 尝试用这个方法论去分析它
-- **通过**: 能得出一个有意义、非平庸的结论 → 通过
-- **不通过**: 只能得出"努力就会成功"之类的废话 → 这个单元没有真正的解释力,降级
+- Design a scenario that's not directly discussed in the book
+- Try to analyze it using this methodology
+- **Pass**: Can derive a meaningful, non-trivial conclusion → Pass
+- **Fail**: Can only derive platitudes like "hard work leads to success" → This unit has no real explanatory power, downgraded
 
-**为什么**: 真正的方法论必须有**外推能力**。如果它只能复述书里的例子,它是描述不是方法。
+**Why**: True methodology must have **extrapolation capability**. If it can only repeat the book's examples, it's a description, not a method.
 
-### V3 — 独特性检验 (Exclusivity)
+### V3 — Uniqueness Check
 
-**问题**: 这个单元是否是"任何聪明人都会说的常识"?
+**Question**: Is this unit "common sense that any smart person would say"?
 
-- 如果把作者名字抹掉,一个对书本领域毫无了解的聪明人也能说出来 → 不通过
-- 必须是作者**独特视角 / 反直觉见解 / 独特术语体系** → 通过
-- **通过**: 段永平的"stop doing list" — 主动列出不做什么,反常识 → 通过
-- **不通过**: "要尊重时间" — 太常识了,没人需要一个 skill 来告诉自己这个
+- If you remove the author's name, a smart person with no knowledge of the book's domain could say it → Fail
+- Must be the author's **unique perspective / counter-intuitive insights / unique terminology system** → Pass
+- **Pass**: Duan Yongping's "stop doing list" — proactively listing what not to do, counter-intuitive → Pass
+- **Fail**: "Respect time" — too common sense, no one needs a skill to tell them this
 
-**为什么**: 常识不需要 skill 承载,Claude 本身就知道。只有作者的**差异化见解**才值得固化成 skill。
+**Why**: Common sense doesn't need a skill to carry it — Claude already knows it. Only the author's **differentiated insights** are worth solidifying into a skill.
 
-## 验证执行流程
+## Verification Execution Process
 
-1. 把阶段 1 的 5 个 candidates/*.md 合并成一个总候选池
-2. 去重: 同一方法论被多个 extractor 提取的,合并成一条
-3. 对每条候选跑 V1 / V2 / V3,记录判断和理由
-4. 通过的,写入 `books/<slug>/verified.md`,进入阶段 2
-5. 未通过的,写入 `books/<slug>/rejected/<id>.md`,**必须写明不通过的是哪一项、原因是什么** (审计价值)
+1. Merge the 5 candidates/*.md from Stage 1 into a single candidate pool
+2. Deduplicate: merge methodology units extracted by multiple extractors into single entries
+3. Run V1/V2/V3 on each candidate, record judgment and reasoning
+4. Passers → write to `books/<slug>/verified.md`, advance to Stage 2
+5. Failures → write to `books/<slug>/rejected/<id>.md`, **must specify which criterion failed and why** (auditing value)
 
-## 输出模板 (verified.md 单条)
+## Output Template (verified.md entry)
 
 ```yaml
 id: f01
-title: 逆向思维
+title: Reverse Thinking
 type: framework
 V1_cross_domain:
   passed: true
   evidence:
-    - 第 3 讲: 投资决策场景
-    - 第 7 讲: 工程设计场景
-    - 第 11 讲: 教学方法场景
+    - Lecture 3: Investment decision scenario
+    - Lecture 7: Engineering design scenario
+    - Lecture 11: Teaching method scenario
 V2_predictive_power:
   passed: true
-  novel_question: "如果面试官问我一个不知道答案的问题该怎么办?"
-  derived_answer: "逆问'我最不希望他认为我是什么样的人',从这个反面倒推应该展现什么"
+  novel_question: "What should I do if an interviewer asks me a question I don't know the answer to?"
+  derived_answer: "Ask 'What do I least want him to think of me?', work backwards from this reverse to determine what should be demonstrated"
 V3_exclusivity:
   passed: true
-  why_not_common: "常识是'要多想',逆向思维是'优先反着想' — 这是反直觉的排序"
-→ 进入阶段 2
+  why_not_common: "Common sense is 'think more', reverse thinking is 'prefer to think in reverse' — this is counter-intuitive prioritization"
+→ Advance to Stage 2
 ```
 
-## 常见失败模式
+## Common Failure Patterns
 
-1. **V1 作弊** — 把同一例子换个说法算两处。要求: 必须是不同章节 + 不同对象 + 不同结论。
-2. **V2 作弊** — 用一个其实书里讨论过的类似问题冒充"新问题"。要求: 新问题应该让人第一眼不知道书里怎么说。
-3. **V3 过松** — 只要"说得比较文雅"就认为不是常识。要求: 看**内容**本身是否反直觉,而不是措辞。
+1. **V1 Cheating** — Counting the same case rephrased as two separate instances. Requirement: must be different chapters + different subjects + different conclusions.
+2. **V2 Cheating** — Using a problem actually discussed in the book disguised as a "new problem". Requirement: the new problem should make someone unfamiliar with the book unable to guess how it would be addressed.
+3. **V3 Too Lenient** — Considering something "elegantly phrased" as not common sense. Requirement: look at the **content itself** for counter-intuitiveness, not just the wording.
 
-## 数量预期
+## Quantity Expectations
 
-经验上,一本方法论密集的书 (如《穷查理宝典》) 通过率约 30–50%。一本散文类书可能只有 5–10%。通过率过低 (<5%) 或过高 (>80%) 都要警惕:
-- 过低: extractor 可能质量差,要重跑
-- 过高: 验证标准可能太松
+Experience shows, for methodology-dense books (like Poor Charlie's Almanac), pass rate is about 30–50%. For prose books, maybe only 5–10%. Pass rates too low (<5%) or too high (>80%) are both red flags:
+- Too low: extractor quality may be poor, need to rerun
+- Too high: verification criteria may be too loose

@@ -1,106 +1,106 @@
 ---
 name: {{skill-slug}}
 description: |
-  {{何时调用 + 何时不调用 + 关键 trigger 信号, ≤300 字}}
-  基于 A2 段, 用于 Claude 激活判断。示例:
-  用户在纠结一个决策、列举正面理由却理不出头绪时;或在问"怎么做 X 才能成功"时。
-  不适用于: 纯信息查询、日常琐碎选择。
-source_book: 《{{BOOK_TITLE}}》 {{AUTHOR}}
-source_chapter: {{章节}}
+  {{When to call + When not to call + Key trigger signals, ≤300 characters}}
+  Based on A2 section, for Claude activation judgment. Examples:
+  When the user is struggling with a decision, listing positive reasons but can't get clarity; or when asking "how do I do X to succeed".
+  Not applicable to: pure information queries, daily trivial choices.
+source_book: "{{BOOK_TITLE}}" by {{AUTHOR}}
+source_chapter: {{chapter}}
 tags: [{{tag1}}, {{tag2}}]
-related_skills: []    # 阶段 3 填充
+related_skills: []    # Fill in phase 3
 ---
 
 # {{Skill Title}}
 
-## R — 原文 (Reading)
+## R — Original Text (Reading)
 
-> {{原文引用, ≤150 字, 必须标注章节/页码}}
+> {{Original quote, ≤150 characters, must include chapter/page number}}
 >
 > — {{AUTHOR}}, {{CHAPTER}}
 
 ---
 
-## I — 方法论骨架 (Interpretation)
+## I — Methodology Framework (Interpretation)
 
-{{ 用自己的话重写, 5-15 行。
-   读完这段, 一个没读过原书的人应当能理解这个方法论在做什么。
-   禁止照搬原文, 禁止堆砌修辞。}}
+{{ Rewrite in your own words, 5-15 lines.
+   After reading this, someone who hasn't read the original book should understand what this methodology is doing.
+   Do not copy the original text, do not pile up rhetoric. }}
 
 ---
 
-## A1 — 书中的应用 (Past Application)
+## A1 — Book Application (Past Application)
 
-### 案例 1: {{案例名}}
-- **问题**: {{作者遇到了什么}}
-- **方法论的使用**: {{作者怎么用这个方法论思考}}
-- **结论**: {{得出了什么}}
-- **结果**: {{实际发生了什么}}
+### Case 1: {{case-name}}
+- **Problem**: {{What the author encountered}}
+- **Methodology Usage**: {{How the author used this methodology to think}}
+- **Conclusion**: {{What they concluded}}
+- **Result**: {{What actually happened}}
 
-### 案例 2 (如有)
+### Case 2 (if applicable)
 ...
 
 ---
 
-## A2 — 触发场景 (Future Trigger) ★
+## A2 — Trigger Scenarios (Future Trigger) ★
 
-### 用户会在什么情境下需要这个 skill?
+### In what situations will users need this skill?
 
-1. {{场景 1 — 具体到可识别的情况}}
-2. {{场景 2}}
-3. {{场景 3}}
+1. {{Scenario 1 — specific and identifiable situation}}
+2. {{Scenario 2}}
+3. {{Scenario 3}}
 
-### 语言信号 (用户的话里出现这些就应激活)
+### Language Signals (Activate when user says these)
 
-- "{{典型措辞 1}}"
-- "{{典型措辞 2}}"
-- "{{典型措辞 3}}"
+- "{{Typical phrasing 1}}"
+- "{{Typical phrasing 2}}"
+- "{{Typical phrasing 3}}"
 
-### 与相邻 skill 的区分
+### Differentiation from adjacent skills
 
-- 与 `{{related-skill-a}}` 的区别: {{ ... }}
-- 与 `{{related-skill-b}}` 的区别: {{ ... }}
-
----
-
-## E — 可执行步骤 (Execution)
-
-当 skill 被激活后, agent 应按以下步骤执行:
-
-1. **{{步骤 1}}**
-   - 完成标准: {{如何判断这一步已完成}}
-
-2. **{{步骤 2}}**
-   - 完成标准: {{ ... }}
-   - 判停条件: 若 {{X}} 则跳到步骤 {{N}}
-
-3. **{{步骤 3}}**
-   - 完成标准: {{ ... }}
+- Difference with `{{related-skill-a}}`: {{ ... }}
+- Difference with `{{related-skill-b}}`: {{ ... }}
 
 ---
 
-## B — 边界 (Boundary) ★
+## E — Executable Steps (Execution)
 
-### 不要在以下情况使用此 skill
+When the skill is activated, the agent should execute in the following steps:
 
-- {{反场景 1 — 为什么不适用}}
-- {{反场景 2}}
+1. **{{Step 1}}**
+   - Completion criteria: {{How to determine this step is complete}}
 
-### 作者在书中警告的失败模式
+2. **{{Step 2}}**
+   - Completion criteria: {{ ... }}
+   - Stop condition: If {{X}} then jump to step {{N}}
 
-- {{ 来自 counter-example-extractor 的对应反例 }}
+3. **{{Step 3}}**
+   - Completion criteria: {{ ... }}
 
-### 作者的盲点 / 时代局限
+---
 
-- {{ 来自阶段 0 批判阶段 }}
+## B — Boundaries (Boundary) ★
 
-### 容易混淆的邻近方法论
+### Do not use this skill in the following situations
+
+- {{Anti-scenario 1 — Why not applicable}}
+- {{Anti-scenario 2}}
+
+### Failure modes warned by the author in the book
+
+- {{ Corresponding counterexample from counter-example-extractor }}
+
+### Author's blind spots / Time limitations
+
+- {{ From phase 0 critical analysis }}
+
+### Easily confused adjacent methodologies
 
 - {{ ... }}
 
 ---
 
-## 相关 skills (阶段 3 填充)
+## Related Skills (Fill in phase 3)
 
 - depends-on: {{}}
 - contrasts-with: {{}}
@@ -108,8 +108,8 @@ related_skills: []    # 阶段 3 填充
 
 ---
 
-## 审计信息
+## Audit Information
 
-- **验证通过**: V1 ✓ / V2 ✓ / V3 ✓
-- **测试通过率**: {{%}} (详见 test-prompts.json)
-- **蒸馏时间**: {{DATE}}
+- **Verification passed**: V1 ✓ / V2 ✓ / V3 ✓
+- **Test pass rate**: {{%}} (see test-prompts.json for details)
+- **Distillation time**: {{DATE}}
