@@ -1,4 +1,4 @@
-# Cangjie Skill
+# Distill Book Skill
 
 Distill a book into a set of executable AI skills.
 
