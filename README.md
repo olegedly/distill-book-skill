@@ -10,7 +10,7 @@ Distilling people is valuable — nuwa-skill has already proven this. Distilling
 
 There's also a real pain point: you might read many books but struggle to apply them. Knowledge stays at the "I've read it" level and never gets activated in real decisions. Once a book is distilled into skills, an AI agent can invoke that knowledge in real scenarios — instead of letting it gather dust in your notes.
 
-So cangjie-skill has one clear goal: **distill every book worth distilling**, turning each high-value book into a set of independently callable, composable, and pressure-testable AI skill packs.
+So distill-book-skill has one clear goal: **distill every book worth distilling**, turning each high-value book into a set of independently callable, composable, and pressure-testable AI skill packs.
 
 ## What Problems It Solves
 
@@ -43,7 +43,7 @@ The name RIA-TV++ breaks down as:
 
 "I want to turn a book's core methodologies into reusable AI skills, not just a reading summary."
 
-**How cangjie-skill reasons**
+**How distill-book-skill reasons**
 
 - Check whether the source material has reusable methodological units
 - Distinguish what deserves to be a standalone skill vs. background material
@@ -59,7 +59,7 @@ The name RIA-TV++ breaks down as:
 
 "I don't want a long explanatory article. I want a skill pack my agent can reuse."
 
-**How cangjie-skill reasons**
+**How distill-book-skill reasons**
 
 - Target is structured reuse, not narrative compression
 - Prioritize triggerable, composable, testable skill units
